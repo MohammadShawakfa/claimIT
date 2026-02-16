@@ -1,0 +1,136 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WishNest</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <div class="bg-shape bg-shape-one"></div>
+  <div class="bg-shape bg-shape-two"></div>
+
+  <header class="hero">
+    <h1>WishNest</h1>
+    <p>Shared wish lists for milestones and celebrations.</p>
+  </header>
+
+  <main class="shell" id="app"></main>
+
+  <template id="landing-template">
+    <section class="panel auth-panel">
+      <h2>Email Sign In</h2>
+      <p>Use your email to sign in. If this is your first time, add your name too.</p>
+      <form id="auth-form" class="stack">
+        <label for="creator-email">Email</label>
+        <input id="creator-email" name="email" type="email" placeholder="you@example.com" required />
+        <label for="creator-name">Name (required for first sign in)</label>
+        <input id="creator-name" name="name" placeholder="Alex and Sam" />
+        <button type="submit">Sign in</button>
+      </form>
+    </section>
+  </template>
+
+  <template id="dashboard-template">
+    <section class="panel">
+      <div class="row between center">
+        <div>
+          <h2>Your Lists</h2>
+          <p class="muted">Signed in as <strong id="creator-label"></strong></p>
+        </div>
+        <button id="sign-out" class="secondary">Sign out</button>
+      </div>
+
+      <div id="list-grid" class="grid"></div>
+
+      <form id="create-list-form" class="stack card">
+        <h3>Create a New List</h3>
+        <label for="list-title">List title</label>
+        <input id="list-title" name="title" placeholder="Our Baby Registry" required />
+        <label for="list-desc">Description</label>
+        <textarea id="list-desc" name="description" rows="2" placeholder="What are you celebrating?"></textarea>
+        <button type="submit">Create List</button>
+      </form>
+    </section>
+  </template>
+
+  <template id="list-editor-template">
+    <section class="panel">
+      <div class="row between start wrap gap">
+        <div>
+          <button id="back-dashboard" class="link">&lt;- Back to dashboard</button>
+          <h2 id="list-title-heading"></h2>
+          <p id="list-description" class="muted"></p>
+          <div class="row wrap center collaborator-header">
+            <p id="owner-line" class="meta"></p>
+            <button id="toggle-collaborators" class="secondary">Edit collaborators</button>
+          </div>
+        </div>
+        <div class="share-wrap">
+          <label>Public share link</label>
+          <div class="row">
+            <input id="share-link" readonly />
+            <button id="copy-link" class="secondary">Copy</button>
+          </div>
+        </div>
+      </div>
+
+      <section id="collaborator-manager" class="card hidden">
+        <h3>Collaborators</h3>
+        <div id="collaborator-list" class="stack"></div>
+        <form id="add-collaborator-form" class="row wrap top-gap">
+          <input name="collaboratorName" placeholder="New collaborator name" required />
+          <input name="collaboratorEmail" type="email" placeholder="new@example.com" required />
+          <button type="submit" class="secondary">Add</button>
+        </form>
+      </section>
+
+      <div id="creator-items" class="cards"></div>
+
+      <section class="card">
+        <h3>Add Item</h3>
+        <form id="add-item-form" class="stack">
+          <label for="item-name">Item name</label>
+          <input id="item-name" name="name" required placeholder="Stroller" />
+          <label for="item-desc">Description</label>
+          <textarea id="item-desc" name="description" rows="2" placeholder="Preferred brand, notes, etc."></textarea>
+          <div class="two-col">
+            <div>
+              <label for="item-price">Price (USD)</label>
+              <input id="item-price" name="price" type="number" min="0" step="0.01" placeholder="120" />
+            </div>
+            <div>
+              <label for="item-qty">Quantity needed</label>
+              <input id="item-qty" name="quantity" type="number" min="1" step="1" value="1" required />
+            </div>
+          </div>
+          <label for="item-link">Product link</label>
+          <input id="item-link" name="productLink" type="url" placeholder="https://store.example/item" />
+          <label for="item-image">Upload image</label>
+          <input id="item-image" name="imageFile" type="file" accept="image/*" />
+          <button type="submit">Add Item</button>
+        </form>
+      </section>
+    </section>
+  </template>
+
+  <template id="viewer-template">
+    <section class="panel">
+      <div class="row between start wrap gap">
+        <div>
+          <h2 id="viewer-list-title"></h2>
+          <p id="viewer-list-desc" class="muted"></p>
+        </div>
+        <span class="badge">Viewer mode</span>
+      </div>
+      <p class="muted">Tap <strong>I Got It!</strong> to claim an item. You can enter your name, or leave it anonymous.</p>
+      <div id="viewer-items" class="cards"></div>
+    </section>
+  </template>
+
+  <script src="app.js"></script>
+</body>
+</html>
